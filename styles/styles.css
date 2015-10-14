@@ -1,0 +1,26 @@
+#map {
+	width: 90%;
+	height: 700px;
+	padding: auto;
+	border: 3px solid #003300;
+	margin: auto;
+}
+#title{
+	width: 100%;
+	text-align: center;
+	font-size: 26px;
+	font-family: Courier;
+}
+#logo{
+	width:175px;
+	padding-left:50px;
+	margin:auto;
+}
+#legend{
+	background:white;
+	padding:5px;
+	border: 2px solid black;
+	font-family: Courier;
+	font-size: 14px;
+	font-weight: bold;	
+}
