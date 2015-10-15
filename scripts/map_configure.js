@@ -1,18 +1,41 @@
-function initialize(){
+var map;
+// Company data is hard coded into the script as JSON created from .xlsx.
+var dataGroups = [qbpSalesDealer,velocityProspects,velocitySalesDealer,velocitySalesRetail];
+var markersGroup1 = [];
+var markersGroup2 = [];
+var markersGroup3 = [];
+var markersGroup4 = [];
+var markerGroups = {"QBP Sales Dealer_checkbox":[markersGroup1],"Velocity Prospects Vetted_checkbox":[markersGroup2],
+"Velocity Sales Dealer_checkbox":[markersGroup3],"Velocity Sales Retail Direct_checkbox":[markersGroup4]};
+
+
+
+/* function toggleGroup(){
+	$(document).on('click','input',function(){
+		var groupId = this.id;
+		var groupArray = markerGroups[groupId][0];
+		for(var i=0;i < groupArray.length;i++){
+			var marker = groupArray[i];
+			if(!marker.getVisible()){
+				marker.setVisible(true);
+			}else{
+				marker.setVisible(false);
+			}
+		}	
+	})
+} */
+
+	
+function initialize_map(){
 	var mapCanvas = document.getElementById('map');
 	var mapOptions = {
 		center: new google.maps.LatLng(39.50,-98.35),
 		zoom: 4,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
-	var map = new google.maps.Map(mapCanvas,mapOptions); 
-	// Company data is hard coded into the script as JSON created from .xlsx.
-	var markersGroup1 = [];
-	var markersGroup2 = [];
-	var markersGroup3 = [];
-	var markersGroup4 = [];
-	var dataGroups = [qbpSalesDealer,velocityProspects,velocitySalesDealer,velocitySalesRetail];
-	// Loop through JSON to initialize markers and attach infowindows displaying the attributes of each company
+	map = new google.maps.Map(mapCanvas,mapOptions); 
+
+	// Loop through JSON data arrays to initialize markers and attach infowindows displaying the attributes of each company
 	for(var i=0;i < dataGroups.length;i++){
 		var group = dataGroups[i];
 		for(var c=0;c < group.length;c++){
@@ -67,6 +90,7 @@ function initialize(){
 			group:groupType,
 			infowindow: markerInfoWindow
 			});
+			marker.setVisible(false);
 			google.maps.event.addListener(marker,'click',function(){
 				this.infowindow.open(map,this);
 			});
@@ -86,19 +110,37 @@ function initialize(){
 	}
 	// Create the legend content
 	var legend = document.getElementById('legend');
-	var markerGroups = [markersGroup1,markersGroup2,markersGroup3,markersGroup4];
-	for(var g = 0;g < markerGroups.length;g++){
-		var markerSample = markerGroups[g][0];
+	for(g in markerGroups){
+		var markerSample = markerGroups[g][0][0];
 		var groupname = markerSample.group;
 		var groupicon = markerSample.icon.url;
-		console.log(groupicon);
 		var div = document.createElement('div');
+		var inputdiv = document.createElement('input');
 		div.setAttribute("id",groupname);
 		div.innerHTML = '<img src="' + groupicon + '"> ' + groupname;
-		legend.appendChild(div);		
+		inputdiv.setAttribute("id",groupname+"_checkbox");
+		inputdiv.setAttribute("type","checkbox");
+		//set onclick event for checkbox that toggles display of each marker group
+		inputdiv.onclick = function(){
+			var groupId = this.id;
+			var groupArray = markerGroups[groupId][0];
+			for(var i=0;i < groupArray.length;i++){
+				var marker = groupArray[i];
+				if(!marker.getVisible()){
+					marker.setVisible(true);
+				}else{
+					marker.setVisible(false);
+				}
+			}	
+		}; 
+		div.appendChild(inputdiv);
+		legend.appendChild(div);
 	}
 	// Load the legend
 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 }
+
+
 // Initialize the map
-google.maps.event.addDomListener(window,'load',initialize);
+google.maps.event.addDomListener(window,'load',initialize_map);
+

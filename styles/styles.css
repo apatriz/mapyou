@@ -19,7 +19,8 @@
 #legend{
 	background:white;
 	padding:5px;
-	border: 2px solid black;
+	border-left: 2px solid black;
+	border-bottom: 2px solid black;
 	font-family: Courier;
 	font-size: 14px;
 	font-weight: bold;	
