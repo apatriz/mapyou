@@ -74,7 +74,8 @@ function initialize_map(){
 		var groupicon = markerSample.icon.url;
 		var div = document.createElement('div');
 		var inputdiv = document.createElement('input');
-		div.innerHTML = '<img src="' + groupicon + '"> ' + g;
+		div.setAttribute("class","legendEntry");
+		div.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + g;	
 		inputdiv.setAttribute("id",g);
 		inputdiv.setAttribute("type","checkbox");
 		//set onclick event for checkbox that toggles display of each marker group

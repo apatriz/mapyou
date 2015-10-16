@@ -1,3 +1,6 @@
+body{
+	font-size:100%
+}
 #map {
 	width: 90%;
 	height: 700px;
@@ -8,12 +11,13 @@
 #title{
 	width: 100%;
 	text-align: center;
-	font-size: 26px;
+	font-size: 2em;
 	font-family: Courier;
 }
 #logo{
 	width:175px;
-	padding-left:50px;
+	height: 50px;
+	padding-left:20px;
 	margin:auto;
 }
 #legend{
@@ -21,7 +25,14 @@
 	padding:5px;
 	border-left: 2px solid black;
 	border-bottom: 2px solid black;
+	
+}
+.legendIcon{
+	width: 17px;
+	height: 25px;
+}
+.legendEntry{
 	font-family: Courier;
-	font-size: 14px;
-	font-weight: bold;	
+	font-size: 1.2em;
+	font-weight:bolder;
 }
