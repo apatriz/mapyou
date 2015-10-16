@@ -71,7 +71,6 @@ function initialize_map(){
 	var legend = document.getElementById('legend');
 	for(g in markerGroups){
 		var markerSample = markerGroups[g][0];
-		console.log(markerSample)
 		var groupicon = markerSample.icon.url;
 		var div = document.createElement('div');
 		var inputdiv = document.createElement('input');
