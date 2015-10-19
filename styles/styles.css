@@ -12,7 +12,7 @@ body{
 	width: 100%;
 	text-align: center;
 	font-size: 2em;
-	font-family: Courier;
+	font-family: "Courier New",Courier,monospace;
 }
 #logo{
 	width:175px;
@@ -27,12 +27,18 @@ body{
 	border-bottom: 2px solid black;
 	
 }
+.content{
+	font-family: Roboto;
+	font-size: 1em;
+	margin: auto;
+	padding: auto;
+}
 .legendIcon{
 	width: 17px;
 	height: 25px;
 }
 .legendEntry{
-	font-family: Courier;
+	font-family: "Courier New",Courier,monospace;
 	font-size: 1.2em;
 	font-weight:bolder;
 }
