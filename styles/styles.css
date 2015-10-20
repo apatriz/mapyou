@@ -1,5 +1,9 @@
 body{
-	font-size:100%
+	font-size:100%;
+}
+h1{
+	margin-top:0;
+	margin-bottom:10px;
 }
 #map {
 	width: 90%;
@@ -9,15 +13,16 @@ body{
 	margin: auto;
 }
 #title{
+	color: #004A00;
+	font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
 	width: 100%;
 	text-align: center;
 	font-size: 2em;
-	font-family: "Courier New",Courier,monospace;
 }
 #logo{
 	width:175px;
 	height: 50px;
-	padding-left:20px;
+	padding-left:10px;
 	margin:auto;
 }
 #legend{
@@ -27,18 +32,42 @@ body{
 	border-bottom: 2px solid black;
 	
 }
+#clientlogo{
+	padding-top:10px;
+}
 .content{
-	font-family: Roboto;
 	font-size: 1em;
 	margin: auto;
 	padding: auto;
 }
 .legendIcon{
+	padding-left:2px;
+	padding-right:2px;
 	width: 17px;
 	height: 25px;
 }
 .legendEntry{
-	font-family: "Courier New",Courier,monospace;
+	padding-bottom:5px;
 	font-size: 1.2em;
-	font-weight:bolder;
+	font-weight:bold;
+}
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:18px;
+    height:18px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+input[id='Potential Customers']:checked {
+    background: #008E00;
+}
+input[id='Velocity QBP Sales']:checked {
+    background: #FE7569;
+}
+input[id='Velocity Dealer Sales']:checked {
+    background: #EBF731;
+}
+input[id='Velocity Retail Direct Sales']:checked {
+    background: #3831F7;
 }

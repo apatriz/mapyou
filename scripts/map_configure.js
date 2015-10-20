@@ -1,14 +1,14 @@
 var map;
 // Marker data is created from local "JSON" files. These are just javascript object arrays created from raw csv/xlsx files, and not true JSON
-var dataGroups = [{"name":"QBP Sales Dealer","data":qbpSalesDealer,"pinColor":"FE7569"},
-{"name":"Velocity Prospects Vetted","data":velocityProspects,"pinColor":"008E00"},
-{"name":"Velocity Sales Dealer","data":velocitySalesDealer,"pinColor":"EBF731"},
-{"name":"Velocity Sales Retail Direct","data":velocitySalesRetail,"pinColor":"3831F7"}];
+var dataGroups = [{"name":"Potential Customers","data":velocityProspects,"pinColor":"008E00"},
+{"name":"Velocity QBP Sales","data":qbpSalesDealer,"pinColor":"FE7569"},
+{"name":"Velocity Dealer Sales","data":velocitySalesDealer,"pinColor":"EBF731"},
+{"name":"Velocity Retail Direct Sales","data":velocitySalesRetail,"pinColor":"3831F7"}];
 var markerGroups = {};
 
 
 	
-function initialize_map(){
+function initializeMap(){
 	var mapCanvas = document.getElementById('map');
 	var mapOptions = {
 		center: new google.maps.LatLng(39.50,-98.35),
@@ -99,5 +99,5 @@ function initialize_map(){
 }
 
 // Initialize the map
-google.maps.event.addDomListener(window,'load',initialize_map);
+google.maps.event.addDomListener(window,'load',initializeMap);
 
