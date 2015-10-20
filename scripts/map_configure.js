@@ -76,8 +76,9 @@ function initializeMap(){
 		var inputdiv = document.createElement('input');
 		div.setAttribute("class","legendEntry");
 		div.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + g;	
-		inputdiv.setAttribute("id",g);
-		inputdiv.setAttribute("type","checkbox");
+		inputdiv.id = g;
+		inputdiv.type ="checkbox";
+		
 		//set onclick event for checkbox that toggles display of each marker group
 		inputdiv.onclick = function(){
 			var groupId = this.id;
@@ -88,6 +89,15 @@ function initializeMap(){
 					marker.setVisible(true);
 				}else{
 					marker.setVisible(false);
+				}
+			}
+			for(i=0;i < dataGroups.length;i++){
+				if(dataGroups[i]["name"] === groupId){	
+					if(this.checked){
+						this.style.background= "#" + dataGroups[i]["pinColor"];
+					}else{
+						this.style.background = "white";
+					}
 				}
 			}	
 		}; 

@@ -59,15 +59,3 @@ input[type='checkbox'] {
     border-radius:5px;
     border:2px solid #555;
 }
-input[id='Potential Customers']:checked {
-    background: #008E00;
-}
-input[id='Velocity QBP Sales']:checked {
-    background: #FE7569;
-}
-input[id='Velocity Dealer Sales']:checked {
-    background: #EBF731;
-}
-input[id='Velocity Retail Direct Sales']:checked {
-    background: #3831F7;
-}
