@@ -5,8 +5,6 @@ var dataGroups = [{"name":"Potential Customers","data":velocityProspects,"pinCol
 {"name":"Velocity Dealer Sales","data":velocitySalesDealer,"pinColor":"EBF731"},
 {"name":"Velocity Retail Direct Sales","data":velocitySalesRetail,"pinColor":"3831F7"}];
 var markerGroups = {};
-
-
 	
 function initializeMap(){
 	var mapCanvas = document.getElementById('map');
@@ -15,9 +13,13 @@ function initializeMap(){
 		zoom: 4,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
-	map = new google.maps.Map(mapCanvas,mapOptions); 
+	map = new google.maps.Map(mapCanvas,mapOptions);
+	createMarkers();
+	createLegend();
+}
 
-	// Loop through JSON data arrays to initialize markers and attach infowindows displaying the attributes of each company
+function createMarkers(){
+// Loop through JSON data arrays to initialize markers and attach infowindows displaying the attributes of each company
 	for(var i=0;i < dataGroups.length;i++){
 		var data = dataGroups[i]["data"];
  		var markerGroupName = dataGroups[i]["name"];
@@ -29,10 +31,10 @@ function initializeMap(){
 				if(company.hasOwnProperty(f)){
 					var fieldName = f;
 					var fieldValue = company[f];
-					if(fieldName.toLowerCase() == "latitude"){
+					if(fieldName.toLowerCase() === "latitude"){
 						var latitude = fieldValue;
 					}
-					else if(fieldName.toLowerCase() == "longitude"){
+					else if(fieldName.toLowerCase() === "longitude"){
 						var longitude = fieldValue;
 					}
 					markerContent += '<p><b>' + fieldName + '</b>: '+ fieldValue + '</p>';	
@@ -66,7 +68,10 @@ function initializeMap(){
 			markerGroup.push(marker); 
 		}
 		markerGroups[markerGroupName]= markerGroup
-	}
+	}	
+}
+
+function createLegend(){
 	// Create the legend content
 	var legend = document.getElementById('legend');
 	for(g in markerGroups){
@@ -77,8 +82,7 @@ function initializeMap(){
 		div.setAttribute("class","legendEntry");
 		div.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + g;	
 		inputdiv.id = g;
-		inputdiv.type ="checkbox";
-		
+		inputdiv.type ="checkbox";		
 		//set onclick event for checkbox that toggles display of each marker group
 		inputdiv.onclick = function(){
 			var groupId = this.id;
@@ -104,10 +108,9 @@ function initializeMap(){
 		div.appendChild(inputdiv);
 		legend.appendChild(div);
 	}
-	// Load the legend
+	// Set the position of the legend inside the map 
 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 }
-
+		
 // Initialize the map
 google.maps.event.addDomListener(window,'load',initializeMap);
-
