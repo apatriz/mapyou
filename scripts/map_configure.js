@@ -5,7 +5,12 @@ var dataGroups = [{"name":"Potential Customers","data":velocityProspects,"pinCol
 {"name":"Velocity Dealer Sales","data":velocitySalesDealer,"pinColor":"EBF731"},
 {"name":"Velocity Retail Direct Sales","data":velocitySalesRetail,"pinColor":"3831F7"}];
 var markerGroups = {};
-	
+var markerInfoWindow = new google.maps.InfoWindow({
+		disableAutoPan:true
+	});
+function moveMap(){
+	map.panBy(0,-200);
+}	
 function initializeMap(){
 	var mapCanvas = document.getElementById('map');
 	var mapOptions = {
@@ -14,6 +19,9 @@ function initializeMap(){
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 	map = new google.maps.Map(mapCanvas,mapOptions);
+	$(window).resize(function(){
+		google.maps.event.trigger(map,'resize')
+	});
 	createMarkers();
 	createLegend();
 }
@@ -45,9 +53,7 @@ function createMarkers(){
 				continue;
 			}
 			markerContent += '</div>';
-			var markerInfoWindow = new google.maps.InfoWindow({
-					content: markerContent
-				});
+
 			var pinColor = dataGroups[i]["pinColor"]
 			var pinImage = {url:"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
 				size: new google.maps.Size(21,34),
@@ -55,15 +61,26 @@ function createMarkers(){
 				anchor: new google.maps.Point(10,34)
 			};	
 			var marker = new google.maps.Marker({
+			title:company["Company"] || company["Customer"] || company["Name"],
 			position:{lat:latitude,lng:longitude},
 			map:map,
 			icon:pinImage,
 			groupName:markerGroupName,
-			infowindow: markerInfoWindow
+			content:markerContent,
 			});
 			marker.setVisible(false);
 			google.maps.event.addListener(marker,'click',function(){
-				this.infowindow.open(map,this);
+				markerInfoWindow.setContent(this.content);
+				markerInfoWindow.open(map,this);
+				map.panTo(this.getPosition());
+				moveMap();
+			});
+			google.maps.event.addListener(marker,'mouseover',function(){
+				$("#previewInfo").html(this.title);
+				$("#previewInfo").show();
+			});	
+			google.maps.event.addListener(marker,'mouseout',function(){
+				$("#previewInfo").hide();
 			});
 			markerGroup.push(marker); 
 		}
