@@ -66,15 +66,18 @@ function createMarkers(){
 			map:map,
 			icon:pinImage,
 			groupName:markerGroupName,
-			content:markerContent,
+			//content:markerContent,
 			});
 			marker.setVisible(false);
-			google.maps.event.addListener(marker,'click',function(){
-				markerInfoWindow.setContent(this.content);
-				markerInfoWindow.open(map,this);
-				map.panTo(this.getPosition());
+			(function(marker,data){
+				google.maps.event.addListener(marker,'click',function(){
+				markerInfoWindow.setContent(data);
+				markerInfoWindow.open(map,marker);
+				map.panTo(marker.getPosition());
 				moveMap();
-			});
+			});		
+			})(marker,markerContent);
+			
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.title);
 				$("#previewInfo").show();
