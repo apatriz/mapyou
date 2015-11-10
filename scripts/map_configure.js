@@ -8,9 +8,7 @@ var markerGroups = {};
 var markerInfoWindow = new google.maps.InfoWindow({
 		disableAutoPan:true
 	});
-function moveMap(){
-	map.panBy(0,-200);
-}	
+	
 function initializeMap(){
 	var mapCanvas = document.getElementById('map');
 	var mapOptions = {
@@ -19,6 +17,7 @@ function initializeMap(){
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 	map = new google.maps.Map(mapCanvas,mapOptions);
+	// Set map resize event trigger on window resize
 	$(window).resize(function(){
 		google.maps.event.trigger(map,'resize')
 	});
@@ -65,19 +64,19 @@ function createMarkers(){
 			position:{lat:latitude,lng:longitude},
 			map:map,
 			icon:pinImage,
-			groupName:markerGroupName,
-			//content:markerContent,
+			groupName:markerGroupName
 			});
 			marker.setVisible(false);
+			//use closure to capture marker and markerContent variable at each iteration and pass them to click event function
 			(function(marker,data){
 				google.maps.event.addListener(marker,'click',function(){
 				markerInfoWindow.setContent(data);
 				markerInfoWindow.open(map,marker);
 				map.panTo(marker.getPosition());
-				moveMap();
+				map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked	
 			});		
 			})(marker,markerContent);
-			
+			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.title);
 				$("#previewInfo").show();
