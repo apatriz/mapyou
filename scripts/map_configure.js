@@ -1,5 +1,6 @@
 var map;
-// Marker data is created from local "JSON" files. These are just javascript object arrays created from raw csv/xlsx files, and not true JSON
+// Data is created from parsing CSV to object arrays.
+
 var dataGroups = [{"name":"Potential Customers","data":velocityProspects,"pinColor":"008E00"},
 {"name":"Velocity QBP Sales","data":qbpSalesDealer,"pinColor":"FE7569"},
 {"name":"Velocity Dealer Sales","data":velocitySalesDealer,"pinColor":"EBF731"},
@@ -39,10 +40,10 @@ function createMarkers(){
 					var fieldName = f;
 					var fieldValue = company[f];
 					if(fieldName.toLowerCase() === "latitude"){
-						var latitude = fieldValue;
+						var latitude = Number(fieldValue);
 					}
 					else if(fieldName.toLowerCase() === "longitude"){
-						var longitude = fieldValue;
+						var longitude = Number(fieldValue);
 					}
 					markerContent += '<p><b>' + fieldName + '</b>: '+ fieldValue + '</p>';	
 				}
