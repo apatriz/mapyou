@@ -1,10 +1,10 @@
 var map;
 // Data is created from parsing CSV to object arrays.
 
-var dataGroups = [{"name":"Potential Customers","data":velocityProspects,"pinColor":"008E00"},
-{"name":"Velocity QBP Sales","data":qbpSalesDealer,"pinColor":"FE7569"},
-{"name":"Velocity Dealer Sales","data":velocitySalesDealer,"pinColor":"EBF731"},
-{"name":"Velocity Retail Direct Sales","data":velocitySalesRetail,"pinColor":"3831F7"}];
+var dataGroups = [{"name":"Potential Customers","data":Velocity_Prospects_Vetted,"pinColor":"008E00"},
+{"name":"Velocity QBP Sales","data":QBP_Sales_Dealer_out,"pinColor":"FE7569"},
+{"name":"Velocity Dealer Sales","data":Velocity_Sales_Dealer_out,"pinColor":"EBF731"},
+{"name":"Velocity Retail Direct Sales","data":Velocity_Sales_Retail_Direct_out,"pinColor":"3831F7"}];
 var markerGroups = {};
 var markerInfoWindow = new google.maps.InfoWindow({
 		disableAutoPan:true
