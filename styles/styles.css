@@ -27,10 +27,10 @@ input[type='checkbox'] {
     border:2px solid #555;
 }
 footer{
-	width:220px;
-	height:150px;
+	width:185px;
+	height:140px;
 	position:absolute;
-	right:20px;
+	right:30px;
 
 }
 #map {
@@ -46,7 +46,7 @@ footer{
 	min-width: 200px;
 	width: 85%;
 	min-height: 200px;
-	height:70%;
+	height:65%;
 	position:relative;
 	margin:auto;
 	z-index:50;
@@ -55,8 +55,8 @@ footer{
 	width:140px;
 	height: 40px;
 	position: relative;
-	left:30px;
-	top:20px;
+	right:5px;
+	top:10px;
 	margin-bottom:15px;
 }
 #legend{
@@ -95,6 +95,8 @@ footer{
 	z-index:99;
 }
 #contact{
+	position:relative;
+	top:15px;
 	font-size: 1em;
 	text-align:center;
 }
