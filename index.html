@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Velocity Economic Gardening</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<title>Economic Gardening Analysis | Velocity</title>
+		
+	<!--[if !IE]><!-->	
 		<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<!--<![endif]-->
+		
+	<!--[if gte IE 7]>
+		<link rel="stylesheet" type="text/css" href="styles/styles.css" media="screen, projection" />
+	<![endif]-->
+	
+	<!--[if IE 6]>
+		<link rel="stylesheet" type="text/css" href="http://universal-ie6-css.googlecode.com/files/ie6.0.3.css" media="screen, projection" />
+	<![endif]-->
+	
 		<script src= "https://maps.googleapis.com/maps/api/js"></script>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="test_data/QBP_Sales_Dealer_out.json"></script>
-		<script src="test_data/Velocity_Prospects_Vetted.json"></script>
-		<script src="test_data/Velocity_Sales_Dealer_out.json"></script>
-		<script src="test_data/Velocity_Sales_Retail_Direct_out.json"></script>
-		<script src= "scripts/map_configure.js"></script>
+		
+		<script type= "text/javascript" src= "test_data/data.js"></script>
+		
+		<script type= "text/javascript" src= "scripts/map_configure.js"></script>
 		
 	</head>
+	
 	<body>
+	
 		<div>
-			<img id="logo" src="images/logo.png" alt= "RSGIS">		
+			<img id="clientlogo" src="images/nationaleglogo.jpg" alt= "National Center For Economic Gardening">		
 			<h1>Velocity Economic Gardening Analysis</h1>
-		</div>	
+		</div>
+		
 		<div id="container">
 			<div id="map"></div>
 			<div id="previewInfo"></div>								
 		</div>
-		<img id="clientlogo" src="images/nationaleglogo.jpg" alt= "National Center For Economic Gardening">	
-		<div id="legend"></div>
+		
+		<footer>
+			<img id="logo" src="images/logo.png" alt= "RSGIS">
+			<hr />
+			
+			<div id="contact">
+				<p><strong>Phone:</strong> (517) 353-7195 <br /><strong>Fax:</strong> (517) 353-1821<br /><strong>E-mail:</strong> boothj@msu.edu </p>
+			</div>
+			
+		</footer>
+	
 	</body>
+	
 </html>
