@@ -57,7 +57,7 @@ footer{
 	position: relative;
 	right:5px;
 	top:10px;
-	margin-bottom:15px;
+	margin-bottom:10px;
 }
 #legend{
 	background:white;
@@ -84,7 +84,7 @@ footer{
 	font-size: 1.15em; 
 	font-weight: bold;
 	background-color:#fff;
-	color: #555;
+	color: #004A00;
 	position:absolute; 
 	left:41%;
 	bottom:10px; 

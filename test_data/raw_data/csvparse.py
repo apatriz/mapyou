@@ -1,6 +1,8 @@
 """
-Iterates through each csv file in a location and outputs data to data.js as JSON-formatted list attached to a variable. Note: this is
-not true JSON.
+Iterates through each csv file in a location and 
+outputs data to data.js as JSON-formatted object array attached 
+to a variable (generated from csv file name). 
+Note: output is not true JSON.
 
 """
 import os
@@ -19,7 +21,6 @@ for file in os.listdir(csvfile_location):
 	csv_rows = []
 	obj_list = []
 	name = os.path.splitext(os.path.basename(file))[0]
-	# json_out = os.path.join(json_out_location,'{0}.js'.format(name))
 	
 	with open(file,'rb') as csv_file:
 		raw_data = csv_file.read()
