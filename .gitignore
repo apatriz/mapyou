@@ -1,5 +1,4 @@
-images/logo.png
-*.png
-*.json
-*.csv
-test_data/data.js
+images/*
+data/*
+scripts/jquery-1.11.3.min.js
+scripts/js
