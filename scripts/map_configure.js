@@ -3,8 +3,7 @@ var map;
 
 var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Customers_Greater_Than_2000_In_Sales,"pinColor":"008E00"},
 {"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"FE7569"},
-{"name":"Prospect List","data":Prospect_List,"pinColor":"EBF731"}];
-/* {"name":"Velocity Retail Direct Sales","data":Velocity_Sales_Retail_Direct_out,"pinColor":"3831F7"}]; */
+{"name":"Prospects","data":Prospect_List,"pinColor":"EBF731"}];
 var markerGroups = {};
 var markerInfoWindow = new google.maps.InfoWindow({
 		disableAutoPan:true

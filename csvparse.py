@@ -22,14 +22,14 @@ for filename in os.listdir(csvfile_location):
 	obj_list = []
 	name = os.path.splitext(os.path.basename(filename))[0]
 	file = os.path.join(csvfile_location,filename)
-	print file
+	print "Parsing file: ",file
 	
 	with open(file,'rb') as csv_file:
 		raw_data = csv_file.read()
 		detected = chardet.detect(raw_data)
 		codec = detected['encoding']
 		confidence = detected['confidence']
-		print codec,confidence
+		print "File encoding: ",codec
 	with open(file,'rb') as csv_file:
 		csv_reader = csvkit.py2.CSVKitReader(csv_file,encoding = codec)
 		for row in csv_reader:
@@ -47,6 +47,7 @@ for filename in os.listdir(csvfile_location):
 		js_file.write('var {0} = '.format(name))
 		json.dump(obj_list,js_file)
 		js_file.write('\n\n')
+print "Finished parsing all files."
 		
 	
 
