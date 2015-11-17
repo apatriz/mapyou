@@ -42,7 +42,6 @@ input[type='checkbox'] {
 	min-height: 200px;
 	height:85%;
 	position:relative;
-/* 	margin:auto; */
 	z-index:50;
 }
 #legend{

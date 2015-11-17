@@ -1,10 +1,10 @@
 var map;
 // Data is created from parsing CSV to object arrays.
 
-var dataGroups = [{"name":"Potential Customers","data":Velocity_Prospects_Vetted,"pinColor":"008E00"},
-{"name":"Velocity QBP Sales","data":QBP_Sales_Dealer_out,"pinColor":"FE7569"},
-{"name":"Velocity Dealer Sales","data":Velocity_Sales_Dealer_out,"pinColor":"EBF731"},
-{"name":"Velocity Retail Direct Sales","data":Velocity_Sales_Retail_Direct_out,"pinColor":"3831F7"}];
+var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Customers_Greater_Than_2000_In_Sales,"pinColor":"008E00"},
+{"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"FE7569"},
+{"name":"Prospect List","data":Prospect_List,"pinColor":"EBF731"}];
+/* {"name":"Velocity Retail Direct Sales","data":Velocity_Sales_Retail_Direct_out,"pinColor":"3831F7"}]; */
 var markerGroups = {};
 var markerInfoWindow = new google.maps.InfoWindow({
 		disableAutoPan:true
@@ -93,17 +93,19 @@ function createMarkers(){
 
 function createLegend(){
 	// Create the legend content
-	var legend = document.createElement('div');
+	var legend = document.createElement('table');
 	legend.setAttribute('id','legend');	
 	for(g in markerGroups){
 		var markerSample = markerGroups[g][0];
 		var groupicon = markerSample.icon.url;
-		var div = document.createElement('div');
-		var inputdiv = document.createElement('input');
-		div.setAttribute("class","legendEntry");
-		div.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + g;	
+		var tableRow = document.createElement('tr');
+		var checkboxCell = document.createElement('td')
+		var entryCell = document.createElement('td')
+		var inputdiv = document.createElement('input');	
+		entryCell.setAttribute("class","legendEntry");
+		entryCell.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + g;
 		inputdiv.id = g;
-		inputdiv.type ="checkbox";		
+		inputdiv.type ="checkbox";
 		//set onclick event for checkbox that toggles display of each marker group
 		inputdiv.onclick = function(){
 			var groupId = this.id;
@@ -125,9 +127,11 @@ function createLegend(){
 					}
 				}
 			}	
-		}; 
-		div.appendChild(inputdiv);
-		legend.appendChild(div);
+		};
+		checkboxCell.appendChild(inputdiv)
+		tableRow.appendChild(entryCell)
+		tableRow.appendChild(checkboxCell)
+		legend.appendChild(tableRow)
 	}
 	// Set the position of the legend inside the map 
 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
