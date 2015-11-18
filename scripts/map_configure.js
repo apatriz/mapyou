@@ -5,8 +5,15 @@ var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Custo
 {"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"FE7569"},
 {"name":"Prospects","data":Prospect_List,"pinColor":"EBF731"}];
 var markerGroups = {};
-var markerInfoWindow = new google.maps.InfoWindow({
-		disableAutoPan:true
+var markerInfoWindow = new InfoBubble({
+		disableAutoPan:true,
+		borderWidth: 1,
+		borderColor:'#003300',
+		borderWidth: 2,
+		borderRadius: 10,
+		shadowStyle: 1,
+		closeSrc: 'images/close.gif',
+		padding:10,
 	});
 	
 function initializeMap(){
@@ -44,7 +51,7 @@ function createMarkers(){
 					else if(fieldName.toLowerCase() === "longitude"){
 						var longitude = Number(fieldValue);
 					}
-					markerContent += '<p><b>' + fieldName + '</b>: '+ fieldValue + '</p>';	
+					markerContent += '<p><strong>' + fieldName + '</strong>: '+ fieldValue + '</p>';	
 				}
 			}
 			//if no latitude, longitude info found, continue through loop

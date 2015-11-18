@@ -42,23 +42,25 @@ input[type='checkbox'] {
 	min-height: 200px;
 	height:85%;
 	position:relative;
-	z-index:50;
 }
 #legend{
 	background:white;
 	padding:5px;
-	border-left: 2px solid black;
-	border-bottom: 2px solid black;
+	border-left: 2px solid #003300;
+	border-bottom: 2px solid #003300;
+	border-bottom-left-radius:10px;
+	font-size:1.1em;
 	
 }
 #previewInfo{
 	display:none; 
 	text-align: center; 
-	border:solid 1px #6c6f36; 
+	border:solid 2px #003300;
+	border-radius:10px;	
 	font-size: 1.15em; 
 	font-weight: bold;
 	background-color:#fff;
-	color: #004A00;
+	color: #003300;
 	position:absolute; 
 	left:41%;
 	bottom:10px; 
@@ -66,7 +68,7 @@ input[type='checkbox'] {
 	padding-left:15px; 
 	padding-right:15px;
 	margin-right:30%;
-	z-index:99;
+	z-index:50;
 }
 #msu{
 	width:45%; float:right; text-align:right; padding-top:20px; font-size:12px; font-family:Arial, Helvetica, sans-serif;
@@ -77,9 +79,10 @@ input[type='checkbox'] {
 }
 
 .content{
-	font-size: 1em;
-	margin: auto;
-	padding: auto;
+	font-size: 13px;
+}
+.content > p{
+	margin:10px 0;
 }
 .legendIcon{
 	padding-left:2px;
