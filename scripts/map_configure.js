@@ -93,7 +93,7 @@ function createMarkers(){
 function createLegend(){
 	// Create the legend content
 	var legend = document.createElement('table');
-	legend.setAttribute('id','legend');	
+	legend.id = "legend";	
 	for(g in markerGroups){
 		var markerSample = markerGroups[g][0];
 		var groupicon = markerSample.icon.url;
