@@ -1,19 +1,19 @@
 var map;
 // Data is created from parsing CSV to object arrays.
 
-var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Customers_Greater_Than_2000_In_Sales,"pinColor":"008E00"},
-{"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"FE7569"},
-{"name":"Prospects","data":Prospect_List,"pinColor":"EBF731"}];
+var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Customers_Greater_Than_2000_In_Sales,"pinColor":"d9f2e6"},
+{"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"ccd9ff"},
+{"name":"Prospects","data":Prospect_List,"pinColor":"ffcccc"}];
 var markerGroups = {};
 var markerInfoWindow = new InfoBubble({
 		disableAutoPan:true,
-		borderWidth: 1,
-		borderColor:'#003300',
 		borderWidth: 2,
+		borderColor:'#00191a',
 		borderRadius: 10,
 		shadowStyle: 1,
-		closeSrc: 'images/close.gif',
+		closeSrc: 'images/x.png',
 		padding:10,
+		backgroundClassName:'infobubble',
 	});
 	
 function initializeMap(){
@@ -71,21 +71,26 @@ function createMarkers(){
 			position:{lat:latitude,lng:longitude},
 			map:map,
 			icon:pinImage,
-			groupName:markerGroupName
+			groupName:markerGroupName,
+			color:'#' + pinColor,
 			});
 			marker.setVisible(false);
 			//use closure to capture marker and markerContent variable at each iteration and pass them to click event function
-			(function(marker,data){
+			(function(marker,data,pinColor){
 				google.maps.event.addListener(marker,'click',function(){
 				markerInfoWindow.setContent(data);
-				markerInfoWindow.open(map,marker);
+				markerInfoWindow.setBackgroundColor(marker.color);
+				markerInfoWindow.open(map,marker);	
 				map.panTo(marker.getPosition());
 				map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked	
 			});		
-			})(marker,markerContent);
+			})(marker,markerContent,pinColor);
 			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.title);
+				$("#previewInfo").css({
+					"background":this.color,
+				})
 				$("#previewInfo").show();
 			});	
 			google.maps.event.addListener(marker,'mouseout',function(){
@@ -120,19 +125,12 @@ function createLegend(){
 				var marker = groupArray[i];
 				if(!marker.getVisible()){
 					marker.setVisible(true);
+					this.style.background = marker.color;
 				}else{
 					marker.setVisible(false);
+					this.style.background = "#fff";
 				}
 			}
-			for(i=0;i < dataGroups.length;i++){
-				if(dataGroups[i]["name"] === groupId){	
-					if(this.checked){
-						this.style.background= "#" + dataGroups[i]["pinColor"];
-					}else{
-						this.style.background = "white";
-					}
-				}
-			}	
 		};
 		checkboxCell.appendChild(inputdiv)
 		tableRow.appendChild(entryCell)
