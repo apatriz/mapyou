@@ -67,7 +67,7 @@ function createMarkers(){
 				anchor: new google.maps.Point(10,34)
 			};	
 			var marker = new google.maps.Marker({
-			title:company["Company"] || company["Customer"] || company["Name"],
+			name:company["Company"] || company["Customer"] || company["Name"],
 			position:{lat:latitude,lng:longitude},
 			map:map,
 			icon:pinImage,
@@ -87,11 +87,9 @@ function createMarkers(){
 			})(marker,markerContent,pinColor);
 			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
-				$("#previewInfo").html(this.title);
-				$("#previewInfo").css({
-					"background":this.color,
-				})
-				$("#previewInfo").show();
+				$("#previewInfo").html(this.name);
+				$("#previewInfo").css("background",this.color);
+				$("#previewInfo").show(150);	
 			});	
 			google.maps.event.addListener(marker,'mouseout',function(){
 				$("#previewInfo").hide();
@@ -104,8 +102,9 @@ function createMarkers(){
 
 function createLegend(){
 	// Create the legend content
-	var legend = document.createElement('table');
-	legend.id = "legend";	
+	var legend = document.getElementById("legend");
+/* 	var legend = document.createElement('table');
+	legend.id = "legend"; */	
 	for(g in markerGroups){
 		var markerSample = markerGroups[g][0];
 		var groupicon = markerSample.icon.url;
@@ -138,7 +137,7 @@ function createLegend(){
 		legend.appendChild(tableRow)
 	}
 	// Set the position of the legend inside the map 
-	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+/* 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend); */
 }
 		
 // Initialize the map
