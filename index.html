@@ -19,11 +19,11 @@
 		<link rel="stylesheet" type="text/css" href="http://universal-ie6-css.googlecode.com/files/ie6.0.3.css" />
 	<![endif]-->
 		
-		<script src= "https://maps.googleapis.com/maps/api/js"></script>
+		<script type= "text/javascript" src= "https://maps.googleapis.com/maps/api/js"></script>
 		
 		<script type= "text/javascript" src= "scripts/jquery-1.11.3.min.js"></script>
 		
-		<script type= "text/javascript" src= "https://googlemaps.github.io/js-info-bubble/src/infobubble.js"></script>
+		<script type= "text/javascript" src= "scripts/infobubble.js"></script>
 		
 		<script type= "text/javascript" src= "data/data.js"></script>
 		
@@ -32,46 +32,34 @@
 	</head>
 	
 	<body>
-	
-		<div>
-			<h1>Repair Zone Economic Gardening Analysis</h1>
-		</div>
-		<div id="container">
-			<div id="map"></div>
-			<div id="previewInfo"></div>
-		</div>
 		
-		<div id="sidebar">
-			<div id="legend"></div>
-			<div id="locatebar">
-			<table id="locator">
-				<tr><th>Click to zoom to marker</th></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-				<tr><td>Test</td></tr>
-			</table>
+		
+			<div id="heading">
+				<h1>Repair Zone Economic Gardening Analysis</h1>
 			</div>
-		</div>
+		<div id="contentwrapper">	
+			<div id="mapcontainer">
+				<div id="map"></div>
+			</div>
+			<div id="sidebar">
+				<div id="legend"></div>
+				<div id="markernav">
+					<p>Click to zoom to marker</p>
+					<ul>
+	
+					</ul>
+				</div>
+			</div>
+				<div id="previewInfo"></div>
+			
+		</div>			
+			<div id="footer">
+				<div id="lowe"><a href="http://edwardlowe.org/tools-programs/economic-gardening/" title="National Center for Economic Gardening"><img src="images/nationaleglogo.jpg" alt= "National Center For Economic Gardening" style="max-width:250px; width:100%;"></a></div>
+				<div id="msu"><a href="http://www.rsgis.msu.edu" title="Remote Sensing &amp; GIS | Michigan State University"><img src="images/rsgismsu.png" alt= "Remote Sensing &amp; GIS | Michigan State University"  style="max-width:250px; width:100%;"></a>
+				<p>Web: <a href="http://www.rsgis.msu.edu" title="Remote Sensing &amp; GIS | Michigan State University">www.rsgis.msu.edu</a> | Tel: (517) 353-7195</p></div>
+			</div>
+			
 		
-		<div>
-			<div id="lowe"><a href="http://edwardlowe.org/tools-programs/economic-gardening/" title="National Center for Economic Gardening"><img src="images/nationaleglogo.jpg" alt= "National Center For Economic Gardening" style="max-width:250px; width:100%;"></a></div>
-        	<div id="msu"><a href="http://www.rsgis.msu.edu" title="Remote Sensing &amp; GIS | Michigan State University"><img src="images/rsgismsu.png" alt= "Remote Sensing &amp; GIS | Michigan State University"  style="max-width:250px; width:100%;"></a>
-            <p>Web: <a href="http://www.rsgis.msu.edu" title="Remote Sensing &amp; GIS | Michigan State University">www.rsgis.msu.edu</a> | Tel: (517) 353-7195</p></div>
-		</div>
 		
 	</body>
 	

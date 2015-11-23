@@ -8,7 +8,7 @@ var markerGroups = {};
 var markerInfoWindow = new InfoBubble({
 		disableAutoPan:true,
 		borderWidth: 2,
-		borderColor:'#00191a',
+		borderColor:'#444242',
 		borderRadius: 10,
 		shadowStyle: 1,
 		closeSrc: 'images/x.png',
@@ -89,7 +89,7 @@ function createMarkers(){
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.name);
 				$("#previewInfo").css("background",this.color);
-				$("#previewInfo").show(150);	
+				$("#previewInfo").show(100);	
 			});	
 			google.maps.event.addListener(marker,'mouseout',function(){
 				$("#previewInfo").hide();
@@ -108,12 +108,16 @@ function createLegend(){
 	for(g in markerGroups){
 		var markerSample = markerGroups[g][0];
 		var groupicon = markerSample.icon.url;
-		var tableRow = document.createElement('tr');
-		var checkboxCell = document.createElement('td')
-		var entryCell = document.createElement('td')
+/* 		var tableRow = document.createElement('tr'); */
+/* 		var checkboxCell = document.createElement('td');
+		var entryCell = document.createElement('td'); */
+		var entryCell = document.createElement('label');
 		var inputdiv = document.createElement('input');	
-		entryCell.setAttribute("class","legendEntry");
-		entryCell.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + g;
+		$(entryCell).attr(
+			{"class":"legendEntry",
+			"for":g,	
+		});
+		entryCell.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + '<span>' + g + '</span>';
 		inputdiv.id = g;
 		inputdiv.type ="checkbox";
 		//set onclick event for checkbox that toggles display of each marker group
@@ -131,10 +135,12 @@ function createLegend(){
 				}
 			}
 		};
-		checkboxCell.appendChild(inputdiv)
+/* 		checkboxCell.appendChild(inputdiv)
 		tableRow.appendChild(entryCell)
-		tableRow.appendChild(checkboxCell)
-		legend.appendChild(tableRow)
+		tableRow.appendChild(checkboxCell) */
+/* 		legend.appendChild(tableRow) */
+		entryCell.appendChild(inputdiv);
+		legend.appendChild(entryCell);
 	}
 	// Set the position of the legend inside the map 
 /* 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend); */
