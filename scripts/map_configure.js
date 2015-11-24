@@ -110,7 +110,7 @@ function createMarkers(){
 				};
 			})(marker);	 */
 			/* navList.push(navItem); */
-			navList.push('<li>' + marker.name + '</li>');
+			navList.push('<li id="' + marker.name + '">' + marker.name + '</li>');
 		}
 		markerGroups[markerGroupName]= markerGroup;
 /* 		navList.sort(function(a,b){
@@ -120,7 +120,7 @@ function createMarkers(){
 		}); */
 		navList.sort();
 		navBar[markerGroupName] = navList;
-	}	
+	}
 }
 
 
@@ -171,6 +171,13 @@ function createLegend(){
 			var groupArray = markerGroups[this.id];
 			for(var i=0;i < groupArray.length;i++){
 				var marker = groupArray[i];
+				//bind click event to nav list item 
+				(function(marker){
+					var listItem = document.getElementById(marker.name);
+					listItem.onclick = function(){
+						google.maps.event.trigger(marker,'click');
+					};
+				})(marker);
 				if(!marker.getVisible()){
 					marker.setVisible(true);
 					this.style.background = marker.color;
