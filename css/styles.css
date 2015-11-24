@@ -50,7 +50,7 @@ body{
 	background-color:#004c4d;
 	min-width:150px;
 	max-width:250px;
-	width:15%;
+	width:17%;
 	padding:10px 10px 4px 10px;
 	color:#ffffff;
 	height:100%;
@@ -58,21 +58,25 @@ body{
 	
 }
 #legend{
-	margin:5px;
+	margin:5px 20px 10% 5px;
+	/* margin-bottom:10%; */
 	padding-bottom:5px;
+	
 }
 #legend label{
 	display:block;
-	padding:10px;
-	margin:5px;
+	padding:10px 5px 10px 5px;
+	margin:0;
 	cursor:pointer;
 	border-radius:5px;
+	width:100%;
 	
 }
 #legend label:hover{
 	background-color:white;
 	color:#444242;
 	font-weight:bolder;
+	font-size:1em;
 }
 #legend input{
 	vertical-align:middle;
@@ -84,7 +88,8 @@ body{
 	font-size:0.9em;
 	white-space:normal;
 	font-weight:bold;
-
+	
+	
 }
 .legendIcon{
 	margin-right:5px;
@@ -96,22 +101,39 @@ body{
 #markernav{
 	margin:5px;
 	padding-top:5px;
-	display:none;
-	overflow:scroll;
-	height:65%;
 	min-height:200px;
+	height:58%;
+	display:none;
+	overflow:hidden;
+	
+	
 	
 }
 #markernav ul{
 	padding:0;
+	margin:5px;
+	min-height:200px;
+	height:80%;
+	overflow:scroll;
+	overflow-x:hidden;
+
 }
 #markernav li{
 	list-style:none;
 	padding:3px;
+	font-size:0.7em;
+	width:80%;
+	white-space:normal;
 }
 #markernav h3{
 	margin:0;
-	padding-bottom:5px;
+	margin-bottom:20px;
+	padding-bottom:10px;
+	padding-top:10px;
+	white-space:normal;
+	font-size:1em;
+	border-top:3px solid #ffffff;
+	border-bottom:3px solid #ffffff;
 }
 #previewInfo{
 	display:none; 

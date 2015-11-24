@@ -53,7 +53,9 @@ function createMarkers(){
 					else if(fieldName.toLowerCase() === "longitude"){
 						var longitude = Number(fieldValue);
 					}
-					markerContent += '<p><strong>' + fieldName + '</strong>: '+ fieldValue + '</p>';	
+					else{
+						markerContent += '<p><strong>' + fieldName + '</strong>: '+ fieldValue + '</p>';
+					}		
 				}
 			}
 			//if no latitude, longitude info found, continue through loop
