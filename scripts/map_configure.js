@@ -102,6 +102,7 @@ function createMarkers(){
 			navList.push('<li>' + marker.name + '</li>');
 		}
 		markerGroups[markerGroupName]= markerGroup;
+		navList.sort();
 		navBar[markerGroupName] = navList;
 	}	
 }
