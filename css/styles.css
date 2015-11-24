@@ -124,6 +124,13 @@ body{
 	font-size:0.7em;
 	width:80%;
 	white-space:normal;
+	cursor:pointer;
+}
+#markernav li:hover{
+	background-color:#ffffff;
+	color:#444242;
+	font-weight:bold;
+	border-radius:5px;
 }
 #markernav h3{
 	margin:0;
