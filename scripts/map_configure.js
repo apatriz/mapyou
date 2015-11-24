@@ -80,7 +80,7 @@ function createMarkers(){
 			});
 			marker.setVisible(false);
 			//use closure to capture marker and markerContent variable at each iteration and pass them to click event function
-			(function(marker,data,pinColor){
+			(function(marker,data){
 				google.maps.event.addListener(marker,'click',function(){
 				markerInfoWindow.setContent(data);
 				markerInfoWindow.setBackgroundColor(marker.color);
@@ -88,7 +88,7 @@ function createMarkers(){
 				map.panTo(marker.getPosition());
 				map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked	
 			});		
-			})(marker,markerContent,pinColor);
+			})(marker,markerContent);
 			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.name);
@@ -99,9 +99,25 @@ function createMarkers(){
 				$("#previewInfo").hide();
 			});
 			markerGroup.push(marker);
+			// create list item for company name in nav list, bind click event
+			/* var navItem = document.createElement('li'); */
+			/* navItem.innerHTML = marker.name; */
+			
+			// bind click event to navItem ()
+/* 			(function(marker){
+				navItem.onclick = function(){
+					google.maps.event.trigger(marker,'click')
+				};
+			})(marker);	 */
+			/* navList.push(navItem); */
 			navList.push('<li>' + marker.name + '</li>');
 		}
 		markerGroups[markerGroupName]= markerGroup;
+/* 		navList.sort(function(a,b){
+			var compA = $(a).text().toUpperCase();
+			var compB = $(b).text().toUpperCase();
+			return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+		}); */
 		navList.sort();
 		navBar[markerGroupName] = navList;
 	}	
@@ -144,7 +160,11 @@ function createLegend(){
 				var navTitle = document.getElementById("navtitle");
 				navTitle.innerHTML = groupId;
 				markerList.innerHTML = navBar[groupId].join('');
-	/* 			markerNav.appendChild(markerList); */
+/* 				for(i=0;i < navBar[groupId].length;i++){
+					markerList.appendChild(navBar[groupId][i]);
+				} */
+				
+/* 				markerNav.appendChild(markerList); */
 			})(this.id);
 		/* 	createNav(this.id); */
 	/* 		var groupId = this.id; */
