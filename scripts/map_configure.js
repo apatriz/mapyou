@@ -5,6 +5,7 @@ var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Custo
 {"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"ccd9ff"},
 {"name":"Prospects","data":Prospect_List,"pinColor":"ffcccc"}];
 var markerGroups = {};
+var navBar = {};
 var markerInfoWindow = new InfoBubble({
 		disableAutoPan:true,
 		borderWidth: 2,
@@ -37,7 +38,8 @@ function createMarkers(){
 	for(var i=0;i < dataGroups.length;i++){
 		var data = dataGroups[i]["data"];
  		var markerGroupName = dataGroups[i]["name"];
-		var markerGroup = [];	
+		var markerGroup = [];
+		var navList = [];
 		for(var c=0;c < data.length;c++){
 			var company = data[c];
 			var markerContent = '<div class="content">';
@@ -94,11 +96,15 @@ function createMarkers(){
 			google.maps.event.addListener(marker,'mouseout',function(){
 				$("#previewInfo").hide();
 			});
-			markerGroup.push(marker); 
+			markerGroup.push(marker);
+			navList.push('<li>' + marker.name + '</li>');
 		}
-		markerGroups[markerGroupName]= markerGroup
+		markerGroups[markerGroupName]= markerGroup;
+		navBar[markerGroupName] = navList;
 	}	
 }
+
+
 
 function createLegend(){
 	// Create the legend content
@@ -106,6 +112,15 @@ function createLegend(){
 /* 	var legend = document.createElement('table');
 	legend.id = "legend"; */	
 	for(g in markerGroups){
+/* 		var markerList = document.createElement("ul");
+/* 		markerList.style.display = "none";
+		markerList.id = g + '_list';
+		markerList.innerHTML = "<p>" + g + "</p>";
+		for(var i=0;i < markerGroups[g].length; i++){
+			var name = markerGroups[g][i].name;
+			markerList.innerHTML += "<li>" + name + "</li>"
+		}
+		markernav.appendChild(markerList); */ 
 		var markerSample = markerGroups[g][0];
 		var groupicon = markerSample.icon.url;
 /* 		var tableRow = document.createElement('tr'); */
@@ -113,26 +128,35 @@ function createLegend(){
 		var entryCell = document.createElement('td'); */
 		var entryCell = document.createElement('label');
 		var inputdiv = document.createElement('input');	
-		$(entryCell).attr(
-			{"class":"legendEntry",
-			"for":g,	
-		});
+		$(entryCell).attr({"class":"legendEntry","for":g,});
 		entryCell.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + '<span>' + g + '</span>';
 		inputdiv.id = g;
 		inputdiv.type ="checkbox";
 		//set onclick event for checkbox that toggles display of each marker group
+			
 		inputdiv.onclick = function(){
-			var groupId = this.id;
-			var groupArray = markerGroups[groupId];
+			(function createNav(groupId){
+/* 				var markerNav = document.getElementById("markernav"); */
+				var markerList = document.getElementById('navlist');	
+				var navTitle = document.getElementById("navtitle");
+				navTitle.innerHTML = groupId;
+				markerList.innerHTML = navBar[groupId].join('');
+	/* 			markerNav.appendChild(markerList); */
+			})(this.id);
+		/* 	createNav(this.id); */
+	/* 		var groupId = this.id; */
+			var groupArray = markerGroups[this.id];
 			for(var i=0;i < groupArray.length;i++){
 				var marker = groupArray[i];
 				if(!marker.getVisible()){
 					marker.setVisible(true);
 					this.style.background = marker.color;
+					$("#markernav").css("display","block")
 				}else{
 					marker.setVisible(false);
-					this.style.background = "#fff";
-				}
+					this.style.background = "#fff";	
+					$("#markernav").css("display","none")					
+				}	
 			}
 		};
 /* 		checkboxCell.appendChild(inputdiv)

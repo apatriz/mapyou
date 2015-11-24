@@ -14,7 +14,7 @@ body{
 	min-width:400px;
 	width:98%;
 	min-height:600px;
-	height:79%;
+	height:80%;
 	white-space:nowrap;
 	display:flex;
 }
@@ -38,7 +38,6 @@ body{
 	min-height: 200px;
 	height:100%;
 	border: 7px solid #004c4d;
-/* 	float:left; */
 	display:inline-block;
 }
 #map{
@@ -54,7 +53,8 @@ body{
 	width:15%;
 	padding:10px 10px 4px 10px;
 	color:#ffffff;
-	height:100%;	
+	height:100%;
+	overflow:hidden;
 	
 }
 #legend{
@@ -96,6 +96,10 @@ body{
 #markernav{
 	margin:5px;
 	padding-top:5px;
+	display:none;
+	overflow:scroll;
+	height:65%;
+	min-height:200px;
 	
 }
 #markernav ul{
@@ -103,9 +107,48 @@ body{
 }
 #markernav li{
 	list-style:none;
+	padding:3px;
+}
+#markernav h3{
+	margin:0;
+	padding-bottom:5px;
+}
+#previewInfo{
+	display:none; 
+	text-align: center;
+	border:solid 2px #444242;
+	border-radius:10px;	
+	font-weight: bold;
+	background-color:#fff;
+	color: #444242;
+	position:relative; 
+	left:40%;
+	bottom:10%; 
+	padding:8px;
+	min-width:150px;
+	width:17%;
+	white-space:normal;
+	z-index:50;
+}
+.infobubble{
+	width:100%;
+	height:100%;	
+}
+.content{
+	font-size: 14px;
+	width:100%;
+	height:100%;
+	color:#20202d;
+	margin-bottom:10px;
+	
+}
+.content > p{
+	padding:5px;
+	padding-right:20px;
+	margin:auto;
+	white-space:nowrap;
 }
 #footer{
-/* 	clear:both; */
 	margin:0 25px 0 3px;
 	
 }
