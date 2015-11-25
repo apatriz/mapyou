@@ -92,7 +92,7 @@ function createMarkers(){
 			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.name);
-				$("#previewInfo").css("background",this.color);
+				$("#previewInfo").css("background-color",this.color);
 				$("#previewInfo").show(100);	
 			});	
 			google.maps.event.addListener(marker,'mouseout',function(){

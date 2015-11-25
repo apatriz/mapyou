@@ -151,12 +151,14 @@ body{
 	border-radius:10px;	
 	font-weight: bold;
 	background-color:#fff;
+/* 	background-color:#004c4d; */
 	color: #444242;
+/* 	color:#ffffff; */
 	position:relative; 
 	left:40%;
 	bottom:10%; 
 	padding:8px;
-	max-width:150px;
+	max-width:200px;
 	/* width:15%; */
 	white-space:normal;
 	z-index:50;
