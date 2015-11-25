@@ -110,7 +110,10 @@ function createMarkers(){
 				};
 			})(marker);	 */
 			/* navList.push(navItem); */
-			navList.push('<li id="' + marker.name + '">' + marker.name + '</li>');
+			var navItem = '<li id="' + marker.name + '">' + marker.name + '</li>';
+			if(navList.indexOf(navItem) === -1){
+				navList.push(navItem);
+			};	
 		}
 		markerGroups[markerGroupName]= markerGroup;
 /* 		navList.sort(function(a,b){
