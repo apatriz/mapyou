@@ -1,6 +1,5 @@
 var map;
 // Data is created from parsing CSV to object arrays.
-
 var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Customers_Greater_Than_2000_In_Sales,"pinColor":"d9f2e6"},
 {"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"ccd9ff"},
 {"name":"Prospects","data":Prospect_List,"pinColor":"ffcccc"}];
@@ -31,6 +30,10 @@ function initializeMap(){
 	});
 	createMarkers();
 	createLegend();
+	$(function(){
+		$("#heading").hide().fadeIn(1200);
+		$("#legend").hide().fadeIn(1200);
+	});
 }
 
 function createMarkers(){
@@ -93,10 +96,10 @@ function createMarkers(){
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.name);
 				$("#previewInfo").css("background-color",this.color);
-				$("#previewInfo").show(100);	
+				$("#previewInfo").stop(false,true).show(150);				
 			});	
 			google.maps.event.addListener(marker,'mouseout',function(){
-				$("#previewInfo").hide();
+				$("#previewInfo").stop(false,true).fadeOut();	
 			});
 			markerGroup.push(marker);
 			// create list item for company name in nav list, bind click event
@@ -131,9 +134,12 @@ function createMarkers(){
 function createLegend(){
 	// Create the legend content
 	var legend = document.getElementById("legend");
+	var markerList = document.getElementById('navlist');	
+	var navTitle = document.getElementById("navtitle");
 /* 	var legend = document.createElement('table');
 	legend.id = "legend"; */	
-	for(g in markerGroups){
+	for(g in markerGroups){	
+
 /* 		var markerList = document.createElement("ul");
 /* 		markerList.style.display = "none";
 		markerList.id = g + '_list';
@@ -158,15 +164,11 @@ function createLegend(){
 			
 		inputdiv.onclick = function(){
 			(function createNav(groupId){
-/* 				var markerNav = document.getElementById("markernav"); */
-				var markerList = document.getElementById('navlist');	
-				var navTitle = document.getElementById("navtitle");
 				navTitle.innerHTML = groupId;
 				markerList.innerHTML = navBar[groupId].join('');
 /* 				for(i=0;i < navBar[groupId].length;i++){
 					markerList.appendChild(navBar[groupId][i]);
 				} */
-				
 /* 				markerNav.appendChild(markerList); */
 			})(this.id);
 		/* 	createNav(this.id); */
@@ -179,16 +181,19 @@ function createLegend(){
 					var listItem = document.getElementById(marker.name);
 					listItem.onclick = function(){
 						google.maps.event.trigger(marker,'click');
+						marker.setVisible(true);
 					};
 				})(marker);
 				if(!marker.getVisible()){
 					marker.setVisible(true);
 					this.style.background = marker.color;
-					$("#markernav").css("display","block")
+				/* 	$("#markernav").css("display","block"); */
+					$("#markernav").fadeIn("slow");
+					$("#clearbutton").fadeIn("slow");
 				}else{
 					marker.setVisible(false);
 					this.style.background = "#fff";	
-					$("#markernav").css("display","none")					
+					/* $("#markernav").css("display","none") */					
 				}	
 			}
 		};
@@ -199,6 +204,20 @@ function createLegend(){
 		entryCell.appendChild(inputdiv);
 		legend.appendChild(entryCell);
 	}
+	// set clear button
+	var clearAll = document.getElementById('clearall');
+	clearAll.onclick = function(){
+		for(g in markerGroups){
+			for(var i=0;i < markerGroups[g].length;i++){
+				var marker = markerGroups[g][i];
+				marker.setVisible(false);
+				markerInfoWindow.close();
+			}
+		}	
+	};
+
+		
+	
 	// Set the position of the legend inside the map 
 /* 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend); */
 }
