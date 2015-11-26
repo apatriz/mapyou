@@ -163,36 +163,18 @@ function createLegend(){
 		//set onclick event for checkbox that toggles display of each marker group
 			
 		inputdiv.onclick = function(){
-			(function createNav(groupId){
-				navTitle.innerHTML = groupId;
-				markerList.innerHTML = navBar[groupId].join('');
-/* 				for(i=0;i < navBar[groupId].length;i++){
-					markerList.appendChild(navBar[groupId][i]);
-				} */
-/* 				markerNav.appendChild(markerList); */
-			})(this.id);
 		/* 	createNav(this.id); */
 	/* 		var groupId = this.id; */
 			var groupArray = markerGroups[this.id];
 			for(var i=0;i < groupArray.length;i++){
 				var marker = groupArray[i];
-				//bind click event to nav list item 
-				(function(marker){
-					var listItem = document.getElementById(marker.name);
-					listItem.onclick = function(){
-						google.maps.event.trigger(marker,'click');
-						marker.setVisible(true);
-					};
-				})(marker);
 				if(!marker.getVisible()){
 					marker.setVisible(true);
 					this.style.background = marker.color;
 				/* 	$("#markernav").css("display","block"); */
-					$("#markernav").fadeIn("slow");
-					$("#clearbutton").fadeIn("slow");
 				}else{
 					marker.setVisible(false);
-					this.style.background = "#fff";	
+					this.style.background = "#fff";
 					/* $("#markernav").css("display","none") */					
 				}	
 			}
@@ -215,9 +197,28 @@ function createLegend(){
 			}
 		}	
 	};
+	//bind click event to legend entries to load navlist 
+	$('#legend').on("click","input",function(){
+		var markerGroup = $(this).attr("id");
+		var itemlist = navBar[markerGroup].join('');
+		$('#navtitle').text(markerGroup);
+		$('#navlist').html(itemlist);
+		$("#markernav").fadeToggle("slow");
+		$("#clearbutton").fadeToggle("slow");
+	});
+	//bind click event to nav list item 
+	$('#navlist').on("click","li",function(){
+		var markerGroup = $('#navtitle').text();
+		var markerName = $(this).attr("id");
+		for(i=0;i < markerGroups[markerGroup].length;i++){
+			var marker = markerGroups[markerGroup][i];
+			if(marker.name === markerName){
+				google.maps.event.trigger(marker,'click');
+				marker.setVisible(true);
+			}
+		};	
+	});
 
-		
-	
 	// Set the position of the legend inside the map 
 /* 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend); */
 }
