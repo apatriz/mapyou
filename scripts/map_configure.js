@@ -170,12 +170,10 @@ function createLegend(){
 				var marker = groupArray[i];
 				if(!marker.getVisible()){
 					marker.setVisible(true);
-					this.style.background = marker.color;
-				/* 	$("#markernav").css("display","block"); */
+					this.style.background = marker.color;	
 				}else{
 					marker.setVisible(false);
-					this.style.background = "#fff";
-					/* $("#markernav").css("display","none") */					
+					this.style.background = "#fff";			
 				}	
 			}
 		};
@@ -190,21 +188,30 @@ function createLegend(){
 	var clearAll = document.getElementById('clearall');
 	clearAll.onclick = function(){
 		for(g in markerGroups){
+			// have to get id this way because jquery won't accept special characters in selector 
+			var markerGroupId = document.getElementById(g);
 			for(var i=0;i < markerGroups[g].length;i++){
 				var marker = markerGroups[g][i];
 				marker.setVisible(false);
 				markerInfoWindow.close();
 			}
-		}	
+			$(markerGroupId).prop('checked', false);
+		}
 	};
 	//bind click event to legend entries to load navlist 
 	$('#legend').on("click","input",function(){
 		var markerGroup = $(this).attr("id");
 		var itemlist = navBar[markerGroup].join('');
-		$('#navtitle').text(markerGroup);
-		$('#navlist').html(itemlist);
-		$("#markernav").fadeToggle("slow");
-		$("#clearbutton").fadeToggle("slow");
+		if($(this).is(":checked")){
+			$("#navtitle").text(markerGroup);
+			$("#navlist").html(itemlist);
+			$("#markernav").hide().fadeIn("slow");
+			$("#clearbutton").hide().fadeToggle("slow");
+		}
+		else{
+			$("#markernav").fadeOut("slow");
+/* 			$("#clearbutton").fadeOut("slow"); */
+		}	
 	});
 	//bind click event to nav list item 
 	$('#navlist').on("click","li",function(){
