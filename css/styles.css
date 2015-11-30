@@ -64,7 +64,7 @@ body{
 	/* margin-bottom:10%; */
 	padding-bottom:5px;
 	font-size:0.9em;
-	font-size:1.8vmin;
+/* 	font-size:1.8vmin; */
 }
 #legend label{
 	display:block;
@@ -163,6 +163,7 @@ body{
 	text-align:center;
 	padding:7px 12px;
 	cursor:pointer;
+	font-weight:bold;
 	font-size:0.9em;
 	border-left: 5px solid #ffffff;
 	border-right: 5px solid #ffffff;
@@ -171,7 +172,7 @@ body{
 #clearbutton:hover{
 	background-color:#ffffff;
 	color:#444242;
-	font-weight:bold;
+	font-weight:bolder;
 	border-radius:5px;
 }
 #previewInfo{
