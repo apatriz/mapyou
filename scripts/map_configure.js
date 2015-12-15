@@ -82,7 +82,7 @@ function createMarkers(){
 			color:'#' + pinColor,
 			});
 			marker.setVisible(false);
-			//use closure to capture marker and markerContent variable at each iteration and pass them to click event function
+			//use IIFE to capture marker and markerContent variables inside closure and pass them to click event function
 			(function(marker,data){
 				google.maps.event.addListener(marker,'click',function(){
 				markerInfoWindow.setContent(data);
@@ -113,7 +113,14 @@ function createMarkers(){
 	}
 }
 
-
+// helper function to toggle marker visibility 
+function toggleMarker(marker){
+	if(!marker.getVisible()){
+		marker.setVisible(true);
+	}else{
+		marker.setVisible(false);
+	}
+}
 
 function createLegend(){
 	// Create the legend content
@@ -133,13 +140,10 @@ function createLegend(){
 			var groupArray = markerGroups[this.id];
 			for(var i=0;i < groupArray.length;i++){
 				var marker = groupArray[i];
-				if(!marker.getVisible()){
-					marker.setVisible(true);
-					this.style.background = marker.color;	
-				}else{
-					marker.setVisible(false);
-					this.style.background = "#fff";			
-				}	
+				if(!marker.focus){
+					toggleMarker(marker);
+				}
+					
 			}
 		};
 		entryCell.appendChild(inputdiv);
@@ -150,13 +154,14 @@ function createLegend(){
 	clearAll.onclick = function(){
 		for(g in markerGroups){
 			// have to get id this way because jquery won't accept special characters in selector 
-			var markerGroupId = document.getElementById(g);
+			var legendInput = document.getElementById(g);
 			for(var i=0;i < markerGroups[g].length;i++){
 				var marker = markerGroups[g][i];
 				marker.setVisible(false);
+				marker.focus = false;
 				markerInfoWindow.close();
 			}
-			$(markerGroupId).prop('checked', false);
+			$(legendInput).prop('checked', false);
 		}
 	};
 	//bind click event to legend entries to load navlist 
@@ -176,12 +181,14 @@ function createLegend(){
 	//bind click event to nav list items 
 	$('#navlist').on("click","li",function(){
 		var markerGroup = $('#navtitle').text();
+		var legendInput = document.getElementById(markerGroup);
 		var markerName = $(this).attr("id");
 		for(i=0;i < markerGroups[markerGroup].length;i++){
 			var marker = markerGroups[markerGroup][i];
 			if(marker.name === markerName){
 				google.maps.event.trigger(marker,'click');
 				marker.setVisible(true);
+				marker.focus = true;			
 			}
 		};	
 	});
