@@ -186,13 +186,14 @@ body{
 	color: #444242;
 /* 	color:#ffffff; */
 	position:absolute; 
-	left:33%;
-	top:78%; 
+	bottom:12%;
+	left:42%;
+	transform: translate(-50%,-50%);
 	padding:8px;
 	min-width:150px;
-/* 	max-width:200px; */
+	max-width:200px;
 /* 	width:10%; */
-	margin-right:55%;
+	margin-right:40%;
 	white-space:normal;
 	z-index:50;
 }
