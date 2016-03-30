@@ -1,8 +1,28 @@
 var map;
-// Data is created from parsing CSV to object arrays.
-var dataGroups = [{"name":"Current Customers: Sales > 2000","data":Current_Customers_Greater_Than_2000_In_Sales,"pinColor":"d9f2e6"},
-{"name":"Potential Competitors","data":Potential_Competitors,"pinColor":"ccd9ff"},
-{"name":"Prospects","data":Prospect_List,"pinColor":"ffcccc"}];
+
+// BEGIN USER INPUT
+// Each object in the 'dataGroups' list has three properties ('name','data','pinColor') which should be modified before using the map.
+// The number of objects can vary (i.e. you may delete or add objects as neccessary)
+// See docs for details.
+var dataGroups = [
+	{
+		"name":"Current Customers: Sales > 2000",
+		"data":current_customers_greater_than_2000_in_sales,
+		"pinColor":"d9f2e6"
+	},
+	{
+		"name":"Potential Competitors",
+		"data":potential_competitors,
+		"pinColor":"ccd9ff"
+	},
+	{
+		"name":"Prospects",
+		"data":prospect_list,
+		"pinColor":"ffcccc"
+	}
+];
+// END USER INPUT
+
 var markerGroups = {};
 var navBar = {};
 var markerInfoWindow = new InfoBubble({
@@ -22,7 +42,7 @@ function initializeMap(){
 		center: new google.maps.LatLng(39.50,-98.35),
 		zoom: 4,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
-	}
+	};
 	map = new google.maps.Map(mapCanvas,mapOptions);
 	// Set map resize event trigger on window resize
 	$(window).resize(function(){
@@ -68,18 +88,19 @@ function createMarkers(){
 			markerContent += '</div>';
 
 			var pinColor = dataGroups[i]["pinColor"]
-			var pinImage = {url:"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+			var pinImage = {
+				url:"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
 				size: new google.maps.Size(21,34),
 				origin: new google.maps.Point(0,0),
 				anchor: new google.maps.Point(10,34)
 			};	
 			var marker = new google.maps.Marker({
-			name:company["Company"] || company["Customer"] || company["Name"],
-			position:{lat:latitude,lng:longitude},
-			map:map,
-			icon:pinImage,
-			groupName:markerGroupName,
-			color:'#' + pinColor,
+				name:company["Company"] || company["Customer"] || company["Name"],
+				position:{lat:latitude,lng:longitude},
+				map:map,
+				icon:pinImage,
+				groupName:markerGroupName,
+				color:'#' + pinColor,
 			});
 			marker.setVisible(false);
 			//use IIFE to capture marker and markerContent variables inside closure and pass them to click event function
