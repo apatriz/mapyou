@@ -135,13 +135,11 @@ function createMarkers(){
 }
 
 // helper function to toggle marker visibility 
-function toggleMarker(marker){
-	if(!marker.getVisible()){
-		marker.setVisible(true);
-	}else{
-		marker.setVisible(false);
-	}
-}
+/* function toggleMarker(marker){
+	marker.focus = false;
+	marker.getVisible() ? marker.setVisible(false):marker.setVisible(true); 	
+
+} */
 
 function createLegend(){
 	// Create the legend content
@@ -158,13 +156,23 @@ function createLegend(){
 		inputdiv.type ="checkbox";
 		//set onclick event for checkbox that toggles display of each marker group		
 		inputdiv.onclick = function(){
+			if($(this).is(':checked')){
+				$(".legendEntry[for='"+this.id+"']").addClass('active-button');		
+			}
+			else{
+				$(".legendEntry[for='"+this.id+"']").removeClass('active-button');
+			}
 			var groupArray = markerGroups[this.id];
 			for(var i=0;i < groupArray.length;i++){
 				var marker = groupArray[i];
-				if(!marker.focus){
-					toggleMarker(marker);
+				if($(this).is(':checked')){
+					marker.setVisible(true);
 				}
-					
+				else{
+					marker.focus = false;
+					marker.setVisible(false);
+					markerInfoWindow.close();
+				}					
 			}
 		};
 		entryCell.appendChild(inputdiv);
@@ -183,6 +191,9 @@ function createLegend(){
 				markerInfoWindow.close();
 			}
 			$(legendInput).prop('checked', false);
+			$('#navlist').children().removeClass('active-button');
+			$('#legend').children().removeClass('active-button');
+			$('#markernav').fadeOut("slow");
 		}
 	};
 	//bind click event to legend entries to load navlist 
@@ -190,13 +201,14 @@ function createLegend(){
 		var markerGroup = $(this).attr("id");
 		var itemlist = navBar[markerGroup].join('');
 		if($(this).is(":checked")){
+			
 			$("#navtitle").text(markerGroup);
 			$("#navlist").html(itemlist);
 			$("#markernav").hide().fadeIn("slow");
-			$("#clearbutton").hide().fadeToggle("slow");
+			$("#controls").hide().fadeIn("slow");
 		}
 		else{
-			$("#markernav").fadeOut("slow");
+			$("#markernav").fadeOut("slow");			
 		}	
 	});
 	//bind click event to nav list items 
@@ -207,9 +219,19 @@ function createLegend(){
 		for(i=0;i < markerGroups[markerGroup].length;i++){
 			var marker = markerGroups[markerGroup][i];
 			if(marker.name === markerName){
-				google.maps.event.trigger(marker,'click');
-				marker.setVisible(true);
-				marker.focus = true;			
+				if(!$(this).hasClass('active-button')){
+					$('#navlist').children().removeClass('active-button');
+					$(this).addClass('active-button');
+					google.maps.event.trigger(marker,'click');
+					marker.setVisible(true);
+					marker.focus = true;		
+				}
+				else{
+					$(this).removeClass('active-button');
+					marker.setVisible(false);
+					marker.focus = false;
+					markerInfoWindow.close();
+				}			
 			}
 		};	
 	});
