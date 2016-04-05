@@ -35,6 +35,11 @@ var markerInfoWindow = new InfoBubble({
 		padding:10,
 		backgroundClassName:'infobubble',
 	});
+/* //set new prototype method to infowindow
+google.maps.InfoWindow.prototype.isOpen = function(){
+	var map = infoBubble.getMap();
+	return (map !== null && typeof map !== "undefined");
+} */
 	
 function initializeMap(){
 	var mapCanvas = document.getElementById('map');
@@ -106,12 +111,20 @@ function createMarkers(){
 			//use IIFE to capture marker and markerContent variables inside closure and pass them to click event function
 			(function(marker,data){
 				google.maps.event.addListener(marker,'click',function(){
-				markerInfoWindow.setContent(data);
-				markerInfoWindow.setBackgroundColor(marker.color);
-				markerInfoWindow.open(map,marker);	
-				map.panTo(marker.getPosition());
-				map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked	
-			});		
+					markerInfoWindow.setContent(data);
+					markerInfoWindow.setBackgroundColor(marker.color);
+					markerInfoWindow.open(map,marker);
+					if(marker.focus){
+						map.setZoom(16);
+					}
+					else{
+						map.setZoom(6);
+					}
+					map.panTo(marker.getPosition());
+					map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked'
+					marker.focus ? marker.focus = false : marker.focus = true;
+				
+				});		
 			})(marker,markerContent);
 			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
@@ -169,7 +182,7 @@ function createLegend(){
 					marker.setVisible(true);
 				}
 				else{
-					marker.focus = false;
+					/* marker.focus = false; */
 					marker.setVisible(false);
 					markerInfoWindow.close();
 				}					
@@ -213,25 +226,32 @@ function createLegend(){
 	});
 	//bind click event to nav list items 
 	$('#navlist').on("click","li",function(){
+		
 		var markerGroup = $('#navtitle').text();
-		var legendInput = document.getElementById(markerGroup);
 		var markerName = $(this).attr("id");
 		for(i=0;i < markerGroups[markerGroup].length;i++){
 			var marker = markerGroups[markerGroup][i];
 			if(marker.name === markerName){
-				if(!$(this).hasClass('active-button')){
+				/* if(!$(this).hasClass('active-button')){ */
 					$('#navlist').children().removeClass('active-button');
+					/* $('#navlist').children().prop('focus',false) */
+					
 					$(this).addClass('active-button');
+					/* map.setZoom(14); */
+					marker.focus = true;
 					google.maps.event.trigger(marker,'click');
-					marker.setVisible(true);
-					marker.focus = true;		
-				}
-				else{
+					
+					
+					
+					/* marker.setVisible(true); */
+					/* marker.focus = true;		 */
+				/* } */
+/* 				else{
 					$(this).removeClass('active-button');
 					marker.setVisible(false);
 					marker.focus = false;
 					markerInfoWindow.close();
-				}			
+				}	 */ 
 			}
 		};	
 	});
