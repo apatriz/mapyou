@@ -109,6 +109,7 @@ function createMarkers(){
 			});
 			marker.setVisible(false);
 			//use IIFE to capture marker and markerContent variables inside closure and pass them to click event function
+			//TODO: implement a smoother zoom
 			(function(marker,data){
 				google.maps.event.addListener(marker,'click',function(){
 					markerInfoWindow.setContent(data);
@@ -192,6 +193,7 @@ function createLegend(){
 		legend.appendChild(entryCell);
 	}
 	// set clear button
+	//TODO: make clear button hidden when no lists are loaded
 	var clearAll = document.getElementById('clearall');
 	clearAll.onclick = function(){
 		for(g in markerGroups){
