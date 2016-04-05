@@ -35,11 +35,7 @@ var markerInfoWindow = new InfoBubble({
 		padding:10,
 		backgroundClassName:'infobubble',
 	});
-/* //set new prototype method to infowindow
-google.maps.InfoWindow.prototype.isOpen = function(){
-	var map = infoBubble.getMap();
-	return (map !== null && typeof map !== "undefined");
-} */
+
 	
 function initializeMap(){
 	var mapCanvas = document.getElementById('map');
@@ -116,10 +112,11 @@ function createMarkers(){
 					markerInfoWindow.setBackgroundColor(marker.color);
 					markerInfoWindow.open(map,marker);
 					if(marker.focus){
-						map.setZoom(16);
+						map.setZoom(17);
 					}
 					else{
-						map.setZoom(6);
+						zoomLevel = map.getZoom();
+						map.setZoom(zoomLevel === 17 ? 6 : zoomLevel);
 					}
 					map.panTo(marker.getPosition());
 					map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked'
@@ -148,12 +145,7 @@ function createMarkers(){
 	}
 }
 
-// helper function to toggle marker visibility 
-/* function toggleMarker(marker){
-	marker.focus = false;
-	marker.getVisible() ? marker.setVisible(false):marker.setVisible(true); 	
 
-} */
 
 function createLegend(){
 	// Create the legend content
@@ -168,7 +160,7 @@ function createLegend(){
 		entryCell.innerHTML = '<img class="legendIcon" src="' + groupicon + '"> ' + '<span>' + g + '</span>';
 		inputdiv.id = g;
 		inputdiv.type ="checkbox";
-		//set onclick event for checkbox that toggles display of each marker group		
+		//set onclick event for checkbox that toggles display of each marker group	
 		inputdiv.onclick = function(){
 			if($(this).is(':checked')){
 				$(".legendEntry[for='"+this.id+"']").addClass('active-button');		
@@ -183,7 +175,6 @@ function createLegend(){
 					marker.setVisible(true);
 				}
 				else{
-					/* marker.focus = false; */
 					marker.setVisible(false);
 					markerInfoWindow.close();
 				}					
@@ -193,7 +184,6 @@ function createLegend(){
 		legend.appendChild(entryCell);
 	}
 	// set clear button
-	//TODO: make clear button hidden when no lists are loaded
 	var clearAll = document.getElementById('clearall');
 	clearAll.onclick = function(){
 		for(g in markerGroups){
@@ -209,9 +199,11 @@ function createLegend(){
 			$('#navlist').children().removeClass('active-button');
 			$('#legend').children().removeClass('active-button');
 			$('#markernav').fadeOut("slow");
+			$('#controls').fadeOut("slow");
 		}
 	};
 	//bind click event to legend entries to load navlist 
+	//TODO:keep list visible as long as legend entry button is active
 	$('#legend').on("click","input",function(){
 		var markerGroup = $(this).attr("id");
 		var itemlist = navBar[markerGroup].join('');
@@ -227,6 +219,7 @@ function createLegend(){
 		}	
 	});
 	//bind click event to nav list items 
+	//TODO: highlight list item when marker is clicked on map as well
 	$('#navlist').on("click","li",function(){
 		
 		var markerGroup = $('#navtitle').text();
@@ -234,26 +227,10 @@ function createLegend(){
 		for(i=0;i < markerGroups[markerGroup].length;i++){
 			var marker = markerGroups[markerGroup][i];
 			if(marker.name === markerName){
-				/* if(!$(this).hasClass('active-button')){ */
 					$('#navlist').children().removeClass('active-button');
-					/* $('#navlist').children().prop('focus',false) */
-					
 					$(this).addClass('active-button');
-					/* map.setZoom(14); */
 					marker.focus = true;
 					google.maps.event.trigger(marker,'click');
-					
-					
-					
-					/* marker.setVisible(true); */
-					/* marker.focus = true;		 */
-				/* } */
-/* 				else{
-					$(this).removeClass('active-button');
-					marker.setVisible(false);
-					marker.focus = false;
-					markerInfoWindow.close();
-				}	 */ 
 			}
 		};	
 	});
