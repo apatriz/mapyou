@@ -240,6 +240,11 @@ label.active-button:hover, label.active-button:focus{
     background: #003233;
     border: solid 2px #00191a;
 }
+#infobar{
+	position:relative;
+	bottom:0px;
+	width:100%;
+}
 #previewInfo{
 	display:none; 
 	text-align: center;
@@ -248,14 +253,16 @@ label.active-button:hover, label.active-button:focus{
 	font-weight: bold;
 	background-color:#fff;
 	color: #444242;
-	position:absolute; 
+/* 	position:absolute; 
 	left:33%;
-	bottom:12%; 
+	bottom:12%; */ 
 	padding:8px;
-	min-width:150px;
-	margin-right:55%;
+	width:200px;
+	/* margin-right:55%; */
+	margin:0px auto;
 	white-space:normal;
 	z-index:50;
+
 }
 .infobubble{
 	width:100%;

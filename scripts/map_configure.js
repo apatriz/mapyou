@@ -35,7 +35,26 @@ var markerInfoWindow = new InfoBubble({
 		padding:10,
 		backgroundClassName:'infobubble',
 	});
+//global tracker for infowindow open/close state
+var infoWindow = false;
 
+function isInfoWindowOpen(infoWindow){
+    /* var map = infoWindow.getMap(); */
+    return (map !== null && typeof map !== "undefined");
+}
+	
+function smoothZoom (map, max, cnt) {
+    if (cnt >= max) {
+            return;
+        }
+    else {
+        z = google.maps.event.addListener(map, 'zoom_changed', function(event){
+            google.maps.event.removeListener(z);
+            smoothZoom(map, max, cnt + 1);
+        });
+        setTimeout(function(){map.setZoom(cnt)}, 80); 
+    }
+}  
 	
 function initializeMap(){
 	var mapCanvas = document.getElementById('map');
@@ -108,27 +127,43 @@ function createMarkers(){
 			//TODO: implement a smoother zoom
 			(function(marker,data){
 				google.maps.event.addListener(marker,'click',function(){
-					markerInfoWindow.setContent(data);
-					markerInfoWindow.setBackgroundColor(marker.color);
-					markerInfoWindow.open(map,marker);
-					if(marker.focus){
+					if(!infoWindow || markerInfoWindow.getContent() !== data){
+						markerInfoWindow.setContent(data);
+						markerInfoWindow.setBackgroundColor(marker.color);
+						markerInfoWindow.open(map,marker);
+						infoWindow = true;
+					}
+					if(marker.getPosition() !== map.getCenter()){
+						map.panTo(marker.getPosition());
+						/* map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked'	 */
+						
+					}
+												
+				});
+				google.maps.event.addListener(marker,'dblclick',function(){
+					/* map.panTo(overlay.getPosition()); */ // set map center to marker position
+					smoothZoom(map, 12, map.getZoom()); // call smoothZoom, parameters map, final zoomLevel, and starting zoom level
+					/* if(marker.focus){
 						map.setZoom(17);
 					}
 					else{
 						zoomLevel = map.getZoom();
 						map.setZoom(zoomLevel === 17 ? 6 : zoomLevel);
 					}
-					map.panTo(marker.getPosition());
-					map.panBy(0,-200);//Pans map to better center view on both marker and infowindow when clicked'
-					marker.focus ? marker.focus = false : marker.focus = true;
-				
-				});		
+					marker.focus ? marker.focus = false : marker.focus = true; */
+				});
+				//add listener to infowindow that executes close() on closeclick event
+				google.maps.event.addListener(markerInfoWindow,"closeclick",function(){
+					
+					infoWindow = false;
+				});
 			})(marker,markerContent);
 			// add event listener for mouse over marker, to display preview of marker title in previewInfo div
 			google.maps.event.addListener(marker,'mouseover',function(){
 				$("#previewInfo").html(this.name);
 				$("#previewInfo").css("background-color",this.color);
-				$("#previewInfo").stop(false,true).show(150);				
+				$("#previewInfo").stop(false,true).fadeIn("fast");
+				/* $("#previewInfo").stop(false,true).show(150); */				
 			});	
 			google.maps.event.addListener(marker,'mouseout',function(){
 				$("#previewInfo").stop(false,true).fadeOut();	
@@ -229,7 +264,7 @@ function createLegend(){
 			if(marker.name === markerName){
 					$('#navlist').children().removeClass('active-button');
 					$(this).addClass('active-button');
-					marker.focus = true;
+					/* marker.focus = true; */
 					google.maps.event.trigger(marker,'click');
 			}
 		};	
